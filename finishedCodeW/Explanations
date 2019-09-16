@@ -1,0 +1,155 @@
+using System; //Get system directive
+using System.Collections.Generic; //Get generic properties from the collections thats in the system class
+using System.Linq; //Get Linq properties from the system
+using System.Text.RegularExpressions; //Get RegularExpressions properties from Text class from System
+
+namespace Rextester //Name of Project
+{
+    public class Program //Name of class
+    {
+        public static void Main(string[] args) //Create a method that is static which means its hardcoded in the program
+                                                //with the parameter of a string array called args
+                                                //Void means it doesn't return a value
+        {
+            //Your code goes here
+            Console.WriteLine("Hello, world!"); //Print a string onto the console
+
+            var meaningOfLife = 42; //Create a private variable that holds an integer value
+            var smallPi = 3.14f; //Create a private float variable which you can tell by the "f" following the number
+            var bigPi = 3.141519265359; //Create a private decimal variable 
+            var vaporWare = "Half Life 3"; //Create a private string variable which you can tell is a string
+                                            //by the values in the quotation marks
+            const bool likesPizza = true;   //Create a boolean variable that cannot be changed even within the class itself
+
+            string[] writers = { "Anthony", "Brian", "Eric", "Sean" }; //Creating an array of strings called
+                                                                        //writers  and push strings into the array
+
+            Console.WriteLine(writers[2]); //Print the third object in the array in the console
+                                            //Arrays start at index 0 so a "2" is actually a "3"
+            writers[0] = "Ray"; //Change what the first item in the array is to "Ray"
+
+            if (likesPizza == false) //An if statement that checks a boolean statement and if it is
+                                    //falseit prints "You monster!" into the console
+            {
+                Console.WriteLine("You monster!");
+            }
+
+            bool isMonster = (likesPizza == true) ? false : true; 
+
+            for (int i = 0; i < 10; i++) //Create a for loop that runs 10 times
+                                         //This for-loop prints "C# Rocks!" 10 times
+            {
+                Console.WriteLine("C# Rocks!");
+            }
+
+            foreach (string writer in writers) //Create a foreach loop that checks each string item
+                                                //in the writers array and prints its result into the
+                                                //console
+            {
+                Console.WriteLine(writer);
+            }
+
+            if (meaningOfLife == 42) //Checks a true or false statement. Checks if the meaningOfLife
+                                        //integer is equal to 42. If it is, the boolean inScope is set to true
+            {
+                bool inScope = true;
+            }
+
+            Point2D myPoint = new Point2D(); //Create a new Point2D variable
+            myPoint.X = 10; //A 2D point variable only has coordinates in the x and y planes, here we 
+                            //set its "X' value to 10
+            myPoint.Y = 20; //Set myPoint's "Y" value to 20
+
+            Point2D anotherPoint = new Point2D(); //Create a new Point2D variable
+            anotherPoint.X = 5; //Set it's "X" and "Y" coordinates
+            anotherPoint.Y = 15;
+
+            myPoint.AddPoint(anotherPoint); //Add anotherPoint to myPoint
+
+            Console.WriteLine(myPoint.X); //Print what myPoint's "X" and "Y" coordinates are
+            Console.WriteLine(myPoint.Y);
+
+            Point2D yetAnotherPoint = myPoint; //Create another 2D object and set it equal to myPoint
+            yetAnotherPoint.X = 100; //change yetAnotherPoint's "X" value to 100
+
+            Console.WriteLine(myPoint.X); //Print what myPoint's "X" and what yetAnotherPoint's "X" is in the console
+                                        //to compare
+            Console.WriteLine(yetAnotherPoint.X); //Both myPoint's "X" values are equal 
+
+            Point2DRef pointRef = new Point2DRef(); //Create Point2D reference
+            pointRef.X = 20; //Set the reference point's "X" value to 20
+            Point2DRef anotherRef = pointRef; //Set anotherRef's values equal to pointRef
+            anotherRef.X = 25; //Change anotherRef's "X" value to 25
+
+            Console.WriteLine(pointRef.X); //Print pointRef's "X" value in the console and 
+                                            //Print anotherRef's "X" value as well
+            Console.WriteLine(anotherRef.X);
+
+            pointRef = null; //make the pointRef null, meaning its reference no longer exists
+
+            anotherRef.X = 125; 
+            Console.WriteLine(anotherRef.X);
+
+            anotherRef = null; //disable anotherRef
+
+            RenFairePerson person = new RenFairePerson(); //Create a new instance of RenFairePerson
+            person.Name = "Igor the Ratcatcher"; //Set its "Name" field to "Igor the Ratcatcher"
+            person.SayHello(); //Execute the person instance of RenFairePerson's SayHello function to 
+                            //print its name
+        }
+    }
+    struct Point2D //Create a struct which is like a class but actually holds the value information
+                    //and not just a reference to it
+                    
+    {
+        public int X; //create integers 
+        public int Y;
+
+        public void AddPoint(Point2D anotherPoint) //create a method that passes a Point2D variable 
+                                                    //as a parameter
+        {
+            this.X = this.X + anotherPoint.X; //"this" is a reference to this instance of the struct
+            this.Y = this.Y + anotherPoint.Y;//and this is setting its "X" and "Y" values to the 
+                                             //Point2D that is passed through the method. This changes
+                                             //the Point2D's values to the new values
+        }
+    }
+
+    class Point2DRef //A class is just a reference to the information in the memory
+    {
+        public int X; 
+        public int Y;
+
+        public void AddPoint(Point2DRef anotherPoint) //this is adding anotherPoint that is
+                                //passed through the AddPoint parameter to this Point2DRef's
+                                //"X" and "Y" values. Since it is a class, it is its own instance
+                                //of itself, and the values of its X and Y are updated
+        {
+            this.X = this.X + anotherPoint.X;
+            this.Y = this.Y + anotherPoint.Y;
+        }
+
+    }
+
+    class Person //This is creating a class called Person
+    {
+        public string Name; //Declaring a public string called name
+        public virtual void SayHello() //Here the SayHello() function is a virtual function
+                                        //meaning any subclasses of this class can override this function
+                                         //to serve its own purpose
+            
+        {
+            Console.WriteLine("Hello"); //Output "Hello" to the Console
+        }
+    }
+
+    class RenFairePerson : Person //Create a subclass of the Person Class
+    {
+        public override void SayHello() //This is overriding the base class SayHello()
+                                        //function with its own rules
+        {
+            base.SayHello(); //this is calling the base class's SayHello() function, which will 
+                            //output "Hello" to the console
+            Console.Write("Huzzah!"); //This will output"Huzzah!" to the console
+        }
+    }
